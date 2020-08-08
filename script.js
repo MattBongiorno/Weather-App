@@ -66,27 +66,48 @@ function secondAjaxCall(obj) {
         })
         .then(function(responsetwo) {
 
-                var weatherImg = ("http://openweathermap.org/img/wn/" + responsetwo.current.weather[0].icon + "@2x.png")
+            var weatherImg = ("http://openweathermap.org/img/wn/" + responsetwo.current.weather[0].icon + "@2x.png")
 
-                // Transfer content to HTML for current
-                $(".cityCurrentSource").attr("src", weatherImg) //add image of weather
-                $(".currentTempDisplay").html("Temperture: " + ((responsetwo.current.temp - 273) * 1.8 + 32).toFixed(2) + "°F")
-                $(".currentHumidityDisplay").html("Humidity: " + responsetwo.current.humidity + "%")
-                $(".currentwindspeedDisplay").html("Wind speed: " + responsetwo.current.wind_speed + "mph")
-                let highlightColor = ''
+            // Transfer content to HTML for current
+            $(".cityCurrentSource").attr("src", weatherImg) //add image of weather
+            $(".currentTempDisplay").html("Temperture: " + ((responsetwo.current.temp - 273) * 1.8 + 32).toFixed(2) + "°F")
+            $(".currentHumidityDisplay").html("Humidity: " + responsetwo.current.humidity + "%")
+            $(".currentwindspeedDisplay").html("Wind speed: " + responsetwo.current.wind_speed + "mph")
+            let highlightColor = ''
 
-                if (responsetwo.current.uvi < 3) {
-                    highlightColor = '#63a10d'
-                } else if (responsetwo.current.uvi >= 3 && responsetwo.current.uvi < 6) {
-                    highlightColor = '#d4cd0b'
-                } else if (responsetwo.current.uvi >= 6 && responsetwo.current.uvi < 8) {
-                    highlightColor = '#d4760b'
-                } else if (responsetwo.current.uvi >= 8 && responsetwo.current.uvi < 11) {
-                    highlightColor = '#d40bc3'
-                } else if (responsetwo.current.uvi > 11) {
-                    highlightColor = '#620bd4'
-                } else {
-                    highlightColor = '#ffffff'
-                };
+            if (responsetwo.current.uvi < 3) {
+                highlightColor = '#63a10d'
+            } else if (responsetwo.current.uvi >= 3 && responsetwo.current.uvi < 6) {
+                highlightColor = '#d4cd0b'
+            } else if (responsetwo.current.uvi >= 6 && responsetwo.current.uvi < 8) {
+                highlightColor = '#d4760b'
+            } else if (responsetwo.current.uvi >= 8 && responsetwo.current.uvi < 11) {
+                highlightColor = '#d40bc3'
+            } else if (responsetwo.current.uvi > 11) {
+                highlightColor = '#620bd4'
+            } else {
+                highlightColor = '#ffffff'
+            };
 
-                $(".uvIndex").html("UV Index: " + "<span style= background-color:" + highlightColor + '>' + responsetwo.current.uvi + "</span>");
+            $(".uvIndex").html("UV Index: " + "<span style= background-color:" + highlightColor + '>' + responsetwo.current.uvi + "</span>");
+
+            let i;
+            for (i = 1; i < 6; i++) {
+                var dateString = moment.unix(responsetwo.daily[i].dt).format("MM/DD/YYYY");
+
+                const dayDiv = $('<div>').addClass('card text-white bg-info mb-3 fiveDayItem card');
+                const dayCardBodyDiv = $('<div>').addClass('card-body');
+                const date = $('<p>').addClass('bold card-title').text(dateString);
+                const dayImg = $('<img>').attr('src', ("http://openweathermap.org/img/wn/" + responsetwo.daily[i].weather[0].icon + "@2x.png")).attr('alt', responsetwo.daily[i].weather[0].main).width('50%');
+                const dayTemp = $('<p>').addClass('dayDisplay').text("Temp: " + ((responsetwo.daily[i].temp.day - 273) * 1.8 + 32).toFixed(2) + "°F");
+                const dayHumidity = $('<p>').addClass('dayDisplay').text("Humidity:" + responsetwo.daily[i].humidity + "%");
+
+                dayCardBodyDiv.append(date, dayImg, dayTemp, dayHumidity)
+                dayDiv.append(dayCardBodyDiv)
+                dayContainer.append(dayDiv)
+
+            }
+
+
+        });
+}
