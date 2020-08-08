@@ -1,0 +1,9 @@
+var APIKey = "8c893c4c32fcf3fcd766d09bdbea6d7c";
+const dayContainer = $('div.fiveDay');
+const uvIndexContainer = $('h6.uvIndex');
+const zipCodeSearch = document.getElementById('searchText');
+let townName = "";
+const displayList = JSON.parse(localStorage.getItem("displayList")) || [{ town: "Boston", zip: "02108" }]; //if array is empty add Boston, so that the array doesn't load weird.
+let zipCode = displayList[0].zip;
+const recentSearches = document.getElementById('recentSearches');
+const searchBtn = document.getElementById("search-btn");
