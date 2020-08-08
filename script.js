@@ -68,8 +68,7 @@ function secondAjaxCall(obj) {
 
             var weatherImg = ("http://openweathermap.org/img/wn/" + responsetwo.current.weather[0].icon + "@2x.png")
 
-            // Transfer content to HTML for current
-            $(".cityCurrentSource").attr("src", weatherImg) //add image of weather
+            $(".cityCurrentSource").attr("src", weatherImg)
             $(".currentTempDisplay").html("Temperture: " + ((responsetwo.current.temp - 273) * 1.8 + 32).toFixed(2) + "°F")
             $(".currentHumidityDisplay").html("Humidity: " + responsetwo.current.humidity + "%")
             $(".currentwindspeedDisplay").html("Wind speed: " + responsetwo.current.wind_speed + "mph")
