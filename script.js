@@ -111,3 +111,12 @@ function secondAjaxCall(obj) {
 
         });
 }
+
+function printRecentSearch() {
+    recentSearches.innerHTML = ""
+    displayList.map(displayList => {
+        var li = document.createElement('li')
+        li.innerHTML = displayList.town + " - " + displayList.zip
+        recentSearches.appendChild(li)
+    });
+};
