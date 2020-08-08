@@ -10,3 +10,27 @@
 
     <title>Weather App</title>
 </head>
+
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center">Weather Dashboard</h1>
+        </div>
+    </div>
+    <div class="city"></div>
+    <div class="wind"></div>
+    <div class="humidity"></div>
+    <div class="temp"></div>
+    <div class="tempF"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-3 container cities card ">
+                <h5>Search For a Location:</h5>
+                <form id="locationForm" method="POST" class="d-flex justify-content-center">
+                    <input type="text" placeholder="zip code?" name="search-text" id="searchText" />
+                    <button id="search-btn" class=" fa fa-search search-btn btn " aria-hidden="true" disabled></button>
+                </form>
+                <ul id="recentSearches"> </ul>
+
+            </div>
