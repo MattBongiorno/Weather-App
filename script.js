@@ -56,3 +56,37 @@ function saveRecentSearch() {
     localStorage.setItem("displayList", JSON.stringify(displayList));
     printRecentSearch();
 };
+
+function secondAjaxCall(obj) {
+
+
+    $.ajax({
+            url: `https://api.openweathermap.org/data/2.5/onecall?lat=${obj.latitude}&lon=${obj.longitude}&appid=${APIKey}`,
+            method: "GET"
+        })
+        .then(function(responsetwo) {
+
+                var weatherImg = ("http://openweathermap.org/img/wn/" + responsetwo.current.weather[0].icon + "@2x.png")
+
+                // Transfer content to HTML for current
+                $(".cityCurrentSource").attr("src", weatherImg) //add image of weather
+                $(".currentTempDisplay").html("Temperture: " + ((responsetwo.current.temp - 273) * 1.8 + 32).toFixed(2) + "°F")
+                $(".currentHumidityDisplay").html("Humidity: " + responsetwo.current.humidity + "%")
+                $(".currentwindspeedDisplay").html("Wind speed: " + responsetwo.current.wind_speed + "mph")
+                let highlightColor = ''
+
+                if (responsetwo.current.uvi < 3) {
+                    highlightColor = '#63a10d'
+                } else if (responsetwo.current.uvi >= 3 && responsetwo.current.uvi < 6) {
+                    highlightColor = '#d4cd0b'
+                } else if (responsetwo.current.uvi >= 6 && responsetwo.current.uvi < 8) {
+                    highlightColor = '#d4760b'
+                } else if (responsetwo.current.uvi >= 8 && responsetwo.current.uvi < 11) {
+                    highlightColor = '#d40bc3'
+                } else if (responsetwo.current.uvi > 11) {
+                    highlightColor = '#620bd4'
+                } else {
+                    highlightColor = '#ffffff'
+                };
+
+                $(".uvIndex").html("UV Index: " + "<span style= background-color:" + highlightColor + '>' + responsetwo.current.uvi + "</span>");
